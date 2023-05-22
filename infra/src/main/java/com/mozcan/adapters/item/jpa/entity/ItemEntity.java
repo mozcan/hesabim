@@ -1,11 +1,13 @@
 package com.mozcan.adapters.item.jpa.entity;
 
 import com.mozcan.adapters.budget.jpa.entity.BudgetEntity;
+import com.mozcan.item.model.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -33,4 +35,12 @@ public class ItemEntity {
     @Column(name = "OBJ_VERSION")
     @Version
     private Long version;
+
+    public Item toModel() {
+        return Item.builder()
+                .id(id)
+                .name(name)
+                .version(version)
+                .build();
+    }
 }

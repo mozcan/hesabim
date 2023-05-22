@@ -1,20 +1,28 @@
 package com.mozcan.adapters.item.rest.dto;
 
-import com.mozcan.item.ItemFacade;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.mozcan.item.usecase.ItemCreate;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Slf4j
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RestController
-@RequestMapping("/items")
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemCreateRequest {
 
-    private ItemFacade itemFacade;
+    @NotNull
+    private String name;
+    @NotNull
+    private Integer typeId;
 
-    public ItemCreateRequest(ItemFacade itemFacade) {
-        this.itemFacade = itemFacade;
+    public ItemCreate toModel() {
+        return ItemCreate.builder()
+                .name(name)
+                .typeId(typeId)
+                .build();
     }
 }
